@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Orbit: New Post</title>
+        <script src='movement.js'></script>
+        
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <form action="collect.php" method="post">
+            Select Type:<br>
+            <select name="type">
+                <option value="quote">Quote of the day</option>
+                <option value="meme">Meme of the day</option>
+                <option value="word">Word of the day</option>
+            </select><br><br>
+            
+            <fieldset>
+                <legend>Content</legend>
+                Title:<br>
+                <input type="text" name="title"><br>
+                Description:<br>
+                <textarea name="content" rows="5" cols="50"></textarea><br><br>    
+            </fieldset>
+            <input type="submit" value="Create">
+        </form>
+    </body>
+</html>
