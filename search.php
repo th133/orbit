@@ -15,10 +15,12 @@
         }
         $max_date = $_POST['max_date'];
         $min_date = $_POST['min_date'];
-        
-        $sql = "SELECT * FROM uploads WHERE date BETWEEN $min_date AND $max_date AND type = $type";
-        
         $type = $_POST['type'];
+        
+        $sql = "SELECT * FROM uploads WHERE type = '$type'";
+        //WHERE date BETWEEN $min_date AND $max_date AND type = $type"
+        
+        
         
         
         $results = mysql_query($sql);
@@ -27,9 +29,11 @@
             die('Invalid query: ' . mysql_error());
         }
         
-        while($result = mysql_fetch_array($results)) {    
-            array_push($results_arr, $result); 
+        while($result = mysql_fetch_array($results)) {
+            $new_result = array($result['title'], $result['content']);
+            array_push($results_arr, $new_result);
         }
+        $json_result = json_encode($results_arr);
         mysql_close();
         ?>
 <html lang="en">
@@ -44,25 +48,36 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
         
-         var display_strs = <?php echo json_encode($results_arr) ?>;
-         
-         var display_arr = JSON.parse(display_strs);
-        var element = document.getElementById("result_field");
-        for(i = 0; i < display_arr.length; i++){
-            var title = document.createElement("h2");
-            var para = document.createElement("p");
-            var node1 = document.createTextNode(display_arr[i]['title']);
-            var node2 = document.createTextNode(display_arr[i]['content']);
-            title.appendChild(node1);
-            para.appendChild(node2);
-            element.appendChild(title);
-            element.appendChild(para);
+        var display_strs = <?php echo $json_result ?>;
+            
+        
+        function show_results(){
+            
+            
+            for(var i = 0; i < display_strs.length; i++){
+                var element = document.getElementById("result_field");
+                var space = document.createElement("div");
+                var space2 = document.createElement("div");
+                space.className = 'jumbotron';
+                space2.className = 'container';
+                var title = document.createElement("h2");
+                var para = document.createElement("p");
+                var node1 = document.createTextNode(display_strs[i][0]);
+                var node2 = document.createTextNode(display_strs[i][1]);
+                title.appendChild(node1);
+                para.appendChild(node2);
+                space.appendChild(title);
+                space.appendChild(para); 
+                space2.appendChild(space);
+                element.appendChild(space2);
                 
+            }
         }
         </script>
     </head>
-    <body>
-        <div>
+    <body onload="show_results()">
+        
+        <div class = 'container'>
             <form action="search.php" method="post">
                 <input type="datetime" name="min_time"><br>
                 <input type="datetime" name="max_time"><br>
