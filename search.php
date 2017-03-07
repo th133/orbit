@@ -1,86 +1,121 @@
-<?php
-        
-        require_once('config.php');
-        
-       $link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
 
-        if(!$link) {
-            die('Could not connect: '. mysql_error());
-        }
-
-        $db_selected = mysql_select_db(DB_NAME, $link);
-
-        if(!$db_selected) {
-            die('Can\'t use ' . DB_NAME . ': ' .mysql_error());
-        }
-        $max_date = $_POST['max_date'];
-        $min_date = $_POST['min_date'];
-        $type = $_POST['type'];
-        
-        $sql = "SELECT * FROM uploads WHERE type = '$type'";
-        //WHERE date BETWEEN $min_date AND $max_date AND type = $type"
-        
-        
-        
-        
-        $results = mysql_query($sql);
-        $results_arr = array();
-        if (!$results) {
-            die('Invalid query: ' . mysql_error());
-        }
-        
-        while($result = mysql_fetch_array($results)) {
-            $new_result = array($result['title'], $result['content']);
-            array_push($results_arr, $new_result);
-        }
-        $json_result = json_encode($results_arr);
-        mysql_close();
-        ?>
 <html lang="en">
     <head>
         <meta charset='utf-8'>
         <title>Orbit: Dynamic Library</title>
-        <script src='movement.js'></script>
-        
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="search.css">
+        <link rel="stylesheet" href="result_pop.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-        
-        var display_strs = <?php echo $json_result ?>;
-            
-        
-        function show_results(){
-            
-            
-            for(var i = 0; i < display_strs.length; i++){
-                var element = document.getElementById("result_field");
-                var space = document.createElement("div");
-                var space2 = document.createElement("div");
-                space.className = 'jumbotron';
-                space2.className = 'container';
-                var title = document.createElement("h2");
-                var para = document.createElement("p");
-                var node1 = document.createTextNode(display_strs[i][0]);
-                var node2 = document.createTextNode(display_strs[i][1]);
-                title.appendChild(node1);
-                para.appendChild(node2);
-                space.appendChild(title);
-                space.appendChild(para); 
-                space2.appendChild(space);
-                element.appendChild(space2);
-                
-            }
-        }
-        </script>
     </head>
-    <body onload="show_results()">
-        
+    <body>
         <div class = 'container'>
-            <form action="search.php" method="post">
-                <input type="datetime" name="min_time"><br>
-                <input type="datetime" name="max_time"><br>
+            <form action="result.php" method="post">
+                Search Start Date:<br>
+                <select name="min_year">
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                </select> 
+                <select name="min_month">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">Octoboer</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select> 
+                <select name="min_date">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                </select><br>
+                Search End Date:<br>
+                <select name="max_year">
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                </select> 
+                <select name="max_month">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">Octoboer</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select> 
+                <select name="max_date">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                </select><br>
                 <select name="type">
                     <option value="quote">Quote of the day</option>
                     <option value="meme">Meme of the day</option>
@@ -88,8 +123,6 @@
                 </select>
                 <input type="submit" value="Search">
             </form>
-        </div>
-        <div id="result_field">
         </div>
     </body>
 </html>

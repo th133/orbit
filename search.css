@@ -1,0 +1,22 @@
+
+html, body{
+    overflow: hidden;
+}
+
+#result_field {
+    position: relative;
+    background-color: #171923;
+}
+
+#animate {
+    text-align: center;
+    position: absolute;
+    background-color: #ffffcc;
+    
+}
+
+#move {
+    background: white;
+    position: absolute;
+    
+}
