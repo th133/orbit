@@ -1,6 +1,14 @@
 
 html, body{
-    overflow: hidden;
+    /*overflow: hidden;*/
+}
+
+#button_field {
+    background-color: #171923;
+}
+
+#show_btn {
+    color: yellow;
 }
 
 #result_field {
