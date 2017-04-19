@@ -1,10 +1,10 @@
 
 html, body{
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 #button_field {
-    background-color: #171923;
+    background-color: #101319;
 }
 
 #show_btn {
@@ -13,13 +13,14 @@ html, body{
 
 #result_field {
     position: relative;
-    background-color: #171923;
+    background-color: #101319;
 }
 
-#animate {
+.animate_object {
     position: absolute;
     white-space: nowrap;
     background-color: lightyellow;
+    color: dodgerblue;
     
 }
 
@@ -27,4 +28,8 @@ html, body{
     background: white;
     position: absolute;
     
+}
+
+#menu{
+    display: none;
 }

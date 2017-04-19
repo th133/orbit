@@ -1,0 +1,55 @@
+#header {
+    text-align: center;
+    color: yellow;
+}
+
+#header h1 {
+    font-size: 50px;
+}
+
+.login_section {
+    position: fixed;
+    z-index: 100;
+    padding-top: 10%;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(10,13,19, 0.4); 
+}
+
+#login_div {
+    text-align:center;
+    background-color: rgba(0,0,30, 0.6);
+    border-radius: 10px;
+    margin: auto.
+    padding: 20px;
+    border: 1px solid yellow;
+    width: 250px;
+}
+
+#login_div p {
+    color: red;
+}
+
+#login_div h3 {
+    color: yellow;
+    text-decoration: underline;
+}
+
+#login_ele {
+    background-color: rgba(0,0,30, 0);
+    border-radius: 2px;
+    border: 1px solid yellow;
+    color: yellow;
+}
+
+select option{
+    background-color: rgba(10,13,19, 0.9);
+    border-radius: 2px;
+}
+
+.hover_btn:hover {
+    color: dodgerblue;
+}
+
+

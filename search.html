@@ -1,24 +1,110 @@
-
-<html lang="en">
+<html lang='en'>
     <head>
         <meta charset='utf-8'>
         <title>Orbit: Dynamic Library</title>
-        <link rel="stylesheet" href="search.css">
-        <link rel="stylesheet" href="result_pop.css">
+        <script src='movement.js'></script>
+
+        <link rel="stylesheet" href="main2.css">
+        <link rel="stylesheet" href="result2.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            var result_width = 20;
+            var start_show = 0;
+            var num_show = 40;
+
+            function reset_result_div_size(){
+                var result_div = document.getElementById("result_field");
+                result_div.style.height = window.innerHeight;
+                result_div.style.width = window.innerWidth;
+
+            }
+
+
+            function show_results(){
+                for(var i = 0; i < 40; i++){
+                    var element = document.getElementById("result_field");
+                    reset_result_div_size();
+                    var space = document.createElement("div");
+                    space.className = 'animate_object';
+                    space.style.width = result_width;
+                    space.style.height = result_width;
+                    space.style.left = window.innerWidth;
+                    space.style.borderRadius = 2;
+                    element.appendChild(space);
+
+                }
+                my_move();
+            }
+
+
+            function my_move() {
+                var elem = document.getElementsByClassName("animate_object");
+                reset_result_div_size();
+                var elem_pos = [];
+                var elem_spd = [];
+                var elem_not_passed = [];
+                var spd_min = 2;
+                var spd_max = 6;
+                var width_c = window.innerWidth;
+                var height_c = Math.round(window.innerHeight * (17 / 20));
+                var len = elem.length;
+                var ratio = 1;
+                if(len > 1){
+                    ratio = (len - 1) / len;
+                }
+                var check_len = Math.round((width_c - result_width * 2) * ratio);
+
+                for(var i = 0; i < len; i++){
+                    elem_spd[i] = Math.floor(Math.random() * (spd_max - spd_min)) + spd_min;
+                    elem_pos[i] = width_c;
+                    elem_not_passed[i] = true;
+                    elem[i].style.top = Math.round(height_c * Math.random());
+                    if(elem_spd[i] == 2){
+                        elem[i].style.backgroundColor = "#ffff80";
+                    } else{
+                        elem[i].style.backgroundColor = "lightyellow";
+                    }
+                    elem[i].style.zIndex = elem_spd[i];
+                }   
+
+                var id = setInterval(frame, 17);
+                var moving = 1;
+                function frame() {
+                    for(var i = 0; i < moving; i++){
+                        if(elem_pos[i] <= -result_width){
+                            elem[i].style.left = width_c;
+                            elem_pos[i] = window.innerWidth;
+                        }else{
+                            elem_pos[i] -= elem_spd[i];
+                            elem[i].style.left = elem_pos[i] + 'px';
+                            if(elem_not_passed[i] && elem_pos[i] <= check_len && moving < len){
+                                moving++;
+                                elem_not_passed[i] = false;
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <script src="redirect.js"></script>
     </head>
-    <body>
-        <div class = 'container'>
-            <form action="result.php" method="post">
-                Search Start Date:<br>
-                <select name="min_year">
+
+    <body onload="show_results()">
+        <div class="login_section">
+            <div id="header" class="hover_btn">
+                <h1 class="hover_btn" onclick="redirect('cross_road.html')">Orbit</h1>
+            </div>
+            <div class="container" id="login_div">
+                <form action="result.php" method="get">
+                    <p>Start Date:</p>
+                <select name="min_year" id="login_ele">
                     <option value="2017">2017</option>
                     <option value="2016">2016</option>
                     <option value="2015">2015</option>
                 </select>
-                <select name="min_month">
+                <select name="min_month" id="login_ele">
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -32,7 +118,7 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select> 
-                <select name="min_date">
+                <select name="min_date" id="login_ele">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -63,14 +149,14 @@
                     <option value="28">28</option>
                     <option value="29">29</option>
                     <option value="30">30</option>
-                </select><br>
-                Search End Date:<br>
-                <select name="max_year">
+                </select><br><br>
+                    <p>End Date:</p>
+                <select name="max_year" id="login_ele">
                     <option value="2017">2017</option>
                     <option value="2016">2016</option>
                     <option value="2015">2015</option>
                 </select> 
-                <select name="max_month">
+                <select name="max_month" id="login_ele">
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -84,7 +170,7 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select> 
-                <select name="max_date">
+                <select name="max_date" id="login_ele">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -115,19 +201,22 @@
                     <option value="28">28</option>
                     <option value="29">29</option>
                     <option value="30">30</option>
-                </select><br>
-                <select name="num_show">
-                    <option value="15">15</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select><br>
-                <select name="type">
+                </select><br><br>
+                <p>Results Shown:</p>
+                <select name="num_show" id="login_ele">
+                    <option value=15>15</option>
+                    <option value=25>25</option>
+                    <option value=50>50</option>
+                </select><br><br>
+                <select name="type" id="login_ele">
                     <option value="quote">Quote of the day</option>
                     <option value="meme">Meme of the day</option>
                     <option value="word">Word of the day</option>
                 </select>
-                <input type="submit" value="Search">
+                <input type="submit" value="Search" id="login_ele">
             </form>
+            </div>
         </div>
+        <div id="result_field"></div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-/* The Modal (background) */
+/* The style sheet below came from https://www.w3schools.com/howto/howto_css_modals.asp */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -14,12 +14,52 @@
 }
 
 /* Modal Content */
-.modal-content {
-    background-color: #fefefe;
+#modal-window {
+    background-color: rgba(0,0,30, 0.6);
+    border-radius: 10px;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    border: 1px solid yellow;
+    width: 250px;
+    text-align: center;
+}
+
+#modal_title {
+    color: dodgerblue;
+}
+
+#modal_date{
+    color: red;
+}
+
+#modal_content {
+    color: yellow;
+}
+
+#menu h2{
+    color: dodgerblue;
+}
+
+#menu p{
+    color: yellow;
+    
+}
+
+#menu a{
+    color: red;
+}
+
+#pages {
+    border: 1px solid red;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#pages:hover {
+    border-color: dodgerblue;
+    background-color: rgba(30,30,30, 0.99);
+    color: dodgerblue;
 }
 
 /* The Close Button */
